@@ -54,7 +54,7 @@ def check_inventory(barcode: str) -> str:
         "Content-Type": "application/json",
         "Accept": "*/*",
         # این هدر از DevTools کپی شده، باید دقیق بفرستی:
-        "x-okcs-timestamp": generate_timestamp()
+        "x-okcs-timestamp": "cu95hsA1UPZunXejIpp8hgoQVJDa5BH1Mn218mkwFqK12QC8HNroeQLvDrSvlUC08vtYpmLSEvfpaIWZsvmPZx2Cu5sS5M6daiiCugz+R3kVwFgDAAMUX6b1IdLiYcqm+kmWhkGEWBLIX8bmzVd4byth+SJtUhBdsIkxtsVRjD2QV7cmPJtwZepFjl1AqgiMAL8Vf4pDpCrlkvruENck0FGbq1sHFO7g8pYNUt75Q62WFuo865nLniSZXKX0cPd2gY4rt7pz6hasIkaTyu5DcbT34nja7NwBQGUCZxfCSuq+R22bhS6FVOG7gYmZi91LY0MS/JJNQO4DoOYVPb21nHMpB26Ixl1m4Y5nZ9puyW8kIGgIuZXrHcxCg/vPc/88+KxN+SXZ6rNojPzeYSGbS8yLEhnEYBMQKgKGyePftvEO6mDycTWS15Grj6AojKoqByaRzHJyIkmMXLe1TIOx30+m0SE/bPUO99Ox8fDWaVk7vJHuWrKDDiFPQSnNRihBuPGZOLrersCpthWmr4sd3PiqregJA4t2spg2pdZkFLjNAOd9x1OQ/z8lCtdyIvJabBzi95urHhHW375nVJcd5F3oMgy5B0DOSiyxTPnWvqV+IXJhTqi4636IwKPjdshVDnfZoC4/5pxL2ij1B8wAEMIPtCyEddT2EvJVjQf9j1cNHLg3WlSvFrUzehBqB6ZVUdYHHJDhZbQv0bViL7Si4hy2XyeWCymx80sqHu8OGgXvAOwKaVAcB+MaINYP+g+ix0zSwZTHxy4FdqzSmVWNNYUbvMERZ5RZf807jaYbNH5cGegEqicReJyfPDyyC+at1c2+JA4inPbs6HqDi7NRF/FrN9Czb3HYMftLGad4EFiyxxICfUHFCqYkq7NC27Yb1yCd3Y8XvP7wGteowuODPdBoyTF5h+o1fKoCuuHPiZKEv/rn6yFx7pmpI3saj34/QxBYYRwTXzbF/4/TQ7LGt1wghbPhipGYKvkTL/CTFVjsv3nrMRaM5asfd7P331l9KoZiMifu4R9LlYK8zCaWPKpt/BHNVIlqffbiRo9Q5Wx3IeJYx67N29kqr4vBdQbeDJMxxaW4hRF/sxX2R4DU8XeNgzpObMQS7+SSvxsZkRpMpFZjXpAiPEZAbyp52Owfzr2ETp1RsRsIjfCxlKviONDIHPJsMlxdov9BbfFbhyGpOdzdDcSpKALAbpTdYVa6HUC+lvRdnRug2veSRxmfuJUKmacEtoJ8a1I2Zqn87Ln04xeAOblgynAmAGJC86+VirXwIqudoj+/poSyoOVity4mk9TY9zHHw0X10F2ZEk9onZSIk71FARkXWMyYKHbg2Yk/sMlDaB7c90g627Hikg=="
     }
 
     payload = {"itemNumber": barcode}
@@ -74,17 +74,6 @@ def check_inventory(barcode: str) -> str:
         return "❌ ارتباط با سرور برقرار نشد (Timeout)"
     except Exception as e:
         return f"❌ خطا: {str(e)}"
-
-
-def generate_timestamp():
-    """
-    شبیه‌سازی مقدار x-okcs-timestamp
-    سرور احتمالاً بررسی خاصی رویش ندارد (base64 رمز شده تصادفی)
-    ولی داشتنش ضروری است تا درخواست reject نشود.
-    """
-    random_bytes = os.urandom(256)
-    ts = base64.b64encode(random_bytes).decode('utf-8')
-    return ts
 
 
 def send_message(chat_id, text):
